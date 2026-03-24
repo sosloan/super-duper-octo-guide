@@ -1,0 +1,13 @@
+{
+  "name": "genql-cypress",
+  "version": "0.1.0",
+  "description": "Cypress bindings for GenQL",
+  "private": true,
+  "scripts": {
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run"
+  },
+  "devDependencies": {
+    "cypress": "^13.17.0"
+  }
+}
