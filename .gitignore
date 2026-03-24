@@ -33,3 +33,8 @@ genql_c/*.o
 genql_c/libgenql.a
 genql_c/genql_demo
 genql_c/test_genql
+
+# Node / Cypress
+node_modules/
+cypress/screenshots/
+cypress/videos/

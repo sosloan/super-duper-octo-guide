@@ -160,6 +160,56 @@ pytest tests/ -v
 
 ---
 
+## Cypress bindings
+
+The `cypress/` directory contains a self-contained JavaScript port of the
+GenQL core, plus custom Cypress commands that let you exercise GenQL
+concepts directly inside your Cypress test suite.
+
+### Installation
+
+```bash
+npm install
+```
+
+### Custom commands
+
+| Command | Yields | Description |
+|---|---|---|
+| `cy.genqlCompile(intent)` | `{ intent, language, code }` | Compile a single intent |
+| `cy.genqlCompileAll(intents)` | `Array<{ intent, language, code }>` | Compile a batch of intents |
+| `cy.genqlExplain(intent)` | `string` | Human-readable routing explanation |
+
+The full GenQL API is also available on the `Cypress.genql` namespace:
+`IntentKind`, `createIntent`, `Absorber`, `Coordinator`, and all
+compiler classes.
+
+### Example
+
+```js
+const { IntentKind, createIntent } = Cypress.genql;
+
+it('compiles a SELECT query', () => {
+  const intent = createIntent(IntentKind.DATA, 'get_users', { table: 'users' });
+  cy.genqlCompile(intent).then((out) => {
+    expect(out.language).to.equal('sql');
+    expect(out.code).to.include('FROM "users"');
+  });
+});
+```
+
+### Running the Cypress tests
+
+```bash
+# Headless run
+npm run cypress:run
+
+# Interactive
+npm run cypress:open
+```
+
+---
+
 ## Package layout
 
 ```
@@ -182,4 +232,13 @@ tests/
   test_absorber.py
   test_compilers.py
   test_coordinator.py
+cypress/
+  support/
+    genql.js           JavaScript port of the GenQL core
+    commands.js        Custom Cypress commands
+    e2e.js             Support entry point
+  e2e/
+    genql.cy.js        Cypress test spec
+cypress.config.js      Cypress configuration
+package.json           Node.js package
 ```
