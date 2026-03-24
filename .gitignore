@@ -27,3 +27,9 @@ htmlcov/
 .idea/
 .vscode/
 *.swp
+
+# C build artefacts (genql_c/)
+genql_c/*.o
+genql_c/libgenql.a
+genql_c/genql_demo
+genql_c/test_genql
